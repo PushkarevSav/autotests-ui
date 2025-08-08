@@ -23,3 +23,5 @@ with sync_playwright() as playwright:
     expect(dashoboard_toolbar).to_be_visible()
     expect(dashoboard_toolbar).to_have_text('Dashboard')
 
+
+
