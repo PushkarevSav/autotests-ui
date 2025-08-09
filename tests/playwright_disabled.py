@@ -1,6 +1,6 @@
 from playwright.sync_api import sync_playwright, expect
 
-from tests.playwright_authorization import login_button
+from tests.test_playwright_authorization import login_button
 
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch()
