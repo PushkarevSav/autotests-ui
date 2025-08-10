@@ -1,48 +1,22 @@
-from playwright.sync_api import sync_playwright, expect
+from playwright.sync_api import sync_playwright, expect, Page
 import pytest
 
 @pytest.mark.courses
 @pytest.mark.regression
-def test_empty_courses_list():
+def test_empty_courses_list(chromium_page_with_state):
 
-    with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=False)
-        context = browser.new_context()
-        page = context.new_page()
+        chromium_page_with_state.goto('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses')
 
-        page.goto('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration')
-
-        email_registration = page.get_by_test_id('registration-form-email-input').locator('input')
-        email_registration.fill('user.name@gmail.com')
-
-        username_registration = page.get_by_test_id('registration-form-username-input').locator('input')
-        username_registration.fill('username')
-
-        password_registration = page.get_by_test_id('registration-form-password-input').locator('input')
-        password_registration.fill('password')
-
-        registration_button = page.get_by_test_id('registration-page-registration-button')
-        registration_button.click()
-
-        context.storage_state(path='browser-state.json')
-
-    with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=False)
-        context = browser.new_context(storage_state='browser-state.json')
-        page = context.new_page()
-
-        page.goto('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses')
-
-        title = page.get_by_test_id('courses-list-toolbar-title-text')
+        title = chromium_page_with_state.get_by_test_id('courses-list-toolbar-title-text')
         expect(title).to_have_text('Courses')
 
-        icon = page.get_by_test_id('courses-list-empty-view-icon')
+        icon = chromium_page_with_state.get_by_test_id('courses-list-empty-view-icon')
         expect(icon).to_be_visible()
 
-        empty_result_text = page.get_by_test_id('courses-list-empty-view-title-text')
+        empty_result_text = chromium_page_with_state.get_by_test_id('courses-list-empty-view-title-text')
         expect(empty_result_text).to_have_text('There is no results')
 
-        description_text = page.get_by_test_id('courses-list-empty-view-description-text')
+        description_text = chromium_page_with_state.get_by_test_id('courses-list-empty-view-description-text')
         expect(description_text).to_have_text('Results from the load test pipeline will be displayed here')
 
 
