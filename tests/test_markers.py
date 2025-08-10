@@ -20,15 +20,15 @@ class TestSuite:
         ...
 
 
+@pytest.mark.registration
+def test_user_registration():
+    pass
+
+@pytest.mark.smoke
+def test_user_login():
+    pass
+
+@pytest.mark.registration
 @pytest.mark.regression
-class TestUserAuthentication:
-    @pytest.mark.smoke
-    def test_login(self):
-        ...
-    @pytest.mark.slow
-    def test_password_reset(self):
-        ...
-
-
-    def test_logout(self):
-        ...
+def test_password_reset():
+    pass
