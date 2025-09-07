@@ -1,7 +1,7 @@
 from playwright.sync_api import Page, expect
 
 from components.courses.course_view_component import CourseViewComponent
-from components.courses.courses_list_toolbar_view_component import CoursesListToolbarViewComponent
+from components.courses.courses_list_toolbar_view_component import CreateCourseToolbarViewComponent
 from components.navigation.navbar_component import NavbarComponent
 from components.navigation.sidebar_component import SidebarComponent
 from components.views.empty_view_component import EmptyViewComponent
@@ -16,7 +16,7 @@ class CoursesListPage(BasePage):
         self.navbar = NavbarComponent(page)
         self.empty_view = EmptyViewComponent(page, 'courses-list')
         self.course_view = CourseViewComponent(page)
-        self.toolbar_view = CoursesListToolbarViewComponent(page)
+        self.toolbar_view = CreateCourseToolbarViewComponent(page)
 
 
         self.course_title = page.get_by_test_id('course-widget-title-text')
