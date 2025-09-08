@@ -1,16 +1,19 @@
 from components.base_component import BaseComponent
 from playwright.sync_api import Page, expect
 
+from elements.input import Input
+from elements.textarea import Textarea
+
 
 class CreateCourseFormComponent(BaseComponent):
     def __init__(self, page: Page):
         super().__init__(page)
 
-        self.title_input = page.get_by_test_id('create-course-form-title-input').locator('input')
-        self.estimated_time_input = page.get_by_test_id('create-course-form-estimated-time-input').locator('input')
-        self.description_textarea = page.get_by_test_id('create-course-form-description-input').locator('textarea').first
-        self.max_score_input = page.get_by_test_id('create-course-form-max-score-input').locator('input')
-        self.min_score_input = page.get_by_test_id('create-course-form-min-score-input').locator('input')
+        self.title_input = Input(page, 'create-course-form-title-input', 'title input')
+        self.estimated_time_input = Input(page, 'create-course-form-estimated-time-input', 'estimated time input')
+        self.description_textarea = Textarea(page, 'create-course-form-description-input', 'description textarea')
+        self.max_score_input = Input(page, 'create-course-form-max-score-input', 'max score input')
+        self.min_score_input = Input(page, 'create-course-form-min-score-input', 'min score input')
 
     def fill(self, title: str, estimated_time: str, description: str, max_score: str, min_score: str):
         self.title_input.fill(title)
@@ -21,8 +24,8 @@ class CreateCourseFormComponent(BaseComponent):
 
     def check_visible(self, title: str, estimated_time: str, description: str, max_score: str, min_score: str):
 
-        expect(self.title_input).to_have_value(title)
-        expect(self.estimated_time_input).to_have_value(estimated_time)
-        expect(self.description_textarea).to_have_value(description)
-        expect(self.max_score_input).to_have_value(max_score)
-        expect(self.min_score_input).to_have_value(min_score)
+       self.title_input.check_have_value(title)
+       self.estimated_time_input.check_have_value(estimated_time)
+       self.description_textarea.check_have_text(description)
+       self.max_score_input.check_have_value(max_score)
+       self.min_score_input.check_have_value(min_score)
