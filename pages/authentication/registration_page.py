@@ -1,4 +1,4 @@
-from typing import re
+
 
 from components.authentication.registration_form_component import RegistrationFormComponent
 from elements.button import Button
